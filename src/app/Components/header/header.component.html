@@ -1,0 +1,14 @@
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <img src="../../../assets/Images/logo-header.png" class="logo-img" />
+            <ul class="nav navbar-nav">
+                <li><a [ngClass]="{'active':vars.activePage=='/recommendations'}" (click)="moveToPage('recommendations')">הצבעות</a></li>
+                <li><a [ngClass]="{'active':vars.activePage=='/settings'}" (click)="moveToPage('settings')">הגדרות</a></li>
+                <li><a [ngClass]="{'active':vars.activePage=='/newDoctors'}" (click)="moveToPage('newDoctors')">רופאים חדשים</a></li>
+                <li><a [ngClass]="{'active':vars.activePage=='/links'}" (click)="moveToPage('links')">קישורים</a></li>
+            </ul>
+            <div class="header-exit"><span>שלום {{vars.user.nvUserName}} </span><a (click)="logout()">התנתק</a></div>
+        </div>
+    </div>
+</nav>

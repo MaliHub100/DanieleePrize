@@ -1,0 +1,25 @@
+<div class="class grid-paging">
+
+    <!-- ng-click="endRow = startRow; startRow = startRow - countRows;  updateData(startRow, endRow);" -->
+    <span class="btn btn-default grid-paging-right" ng-disabled="startRow == 0   
+    " ng-click="(startRow != 0 ? endRow = startRow : ''); 
+                (startRow != 0 ? startRow = startRow - countRows : '');
+                (startRow != 0 ? updateData(startRow, endRow) : '');">
+                <span class="fa fa-chevron-right"></span>
+    </span>
+
+    <div class="btn-group" style="width: 94px;">
+        <select class=" btn btn-dropdown dropdown-toggle claerfix" ng-model="countRows" style="width: 94px;" ng-options="item as ( item + '/' +(data.length | number)) for item in paging" ng-change="updateCount(countRows) ; updateData(0, countRows)">
+                </select>
+    </div>
+
+    <!-- " ng-click="startRow = endRow; endRow = endRow + countRows; updateData(startRow, endRow); pageNumber = pageNumber + 1"> -->
+    <span class="btn btn-default grid-paging-right" ng-disabled="endRow >= data.length        
+        " ng-click="(endRow < data.length ? startRow = endRow : ''); 
+        (endRow < data.length ? endRow = endRow + countRows : ''); 
+        (endRow < data.length ? updateData(startRow, endRow) : ''); 
+        (endRow < data.length ? pageNumber = pageNumber + 1 : '')">
+                <span class="fa fa-chevron-left"></span>
+    </span>
+
+</div>

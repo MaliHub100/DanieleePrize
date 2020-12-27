@@ -1,0 +1,71 @@
+<!-- <div class="gridWrapper grid-template">
+    <div class="gridHeader">
+        <div class="gridRow headerRow">
+            <div ng-repeat="col in columns" class="gridColumn" ng-style="{width : col.width}" ng-click=" (undefined != col.fieldName) ? sort(col) : ('') " ng-if="col.type != 'hidden'">
+                <div class=" cancel-padding cancel-margin">
+
+                    <div title="{{col.title}}" class="col-md-12 cancel-padding cancel-margin">{{col.title}}</div>
+                    <div class="col-md-2 cancel-padding cancel-margin sort" ng-if="col.sort == true">
+                        <!--col.sort == undefined ||-->
+                        <i ng-show="currentSort.name != col.fieldName || currentSort.name == col.fieldName && currentSort.value" class="fa fa-angle-down"></i>
+                        <i ng-show="currentSort.name == col.fieldName && !currentSort.value" class="fa fa-angle-up"></i>
+                    </div>
+                    <div ng-if="col.type=='choose'">
+                        <input type="checkbox" ng-click="changeSelected(col.fieldName)" />
+                        <!--<span ng-if="selectAll" class="glyphicon glyphicon-check"
+                            ng-click="changeSelected(col.fieldName,$index)"></span>
+                        <span ng-if="!selectAll" class="glyphicon glyphicon-unchecked"
+                            ng-click="changeSelected(col.fieldName,$index)"></span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="gridRow headerFilter">
+            <div ng-repeat="col in columns" class="gridColumn" ng-style="{width : col.width}" ng-init="isSearchName = true" ng-if="col.type != 'hidden'">
+                <div class="">
+                    <div class="form-control filter-header-row" style="position: relative; width: 100%; padding: 6px;" ng-if="col.filter">
+                        <input ng-model="filterFields[col.fieldName]" placeholder="חפש..." />
+                        <div ng-click="filterFields[col.fieldName] = ''; filter()" style="position: absolute; left: 5px; top: 0px;">
+                            <span ng-class="{'fa fa-search' : filterFields[col.fieldName] == undefined ||  filterFields[col.fieldName] == '',
+                            'fa fa-times' : filterFields[col.fieldName] != undefined && filterFields[col.fieldName] != '' }"></span>
+                        </div>
+                    </div>
+                    <div compile-data template="{{col.titleTemp}}" style="position: relative; width: 100%; padding: 6px;" ng-if="col.titleTemp">
+                    </div>
+                    <!-- <fieldset  > -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="gridBody" ng-style="{height : screenHeight}">
+        <div ng-repeat="item in getData()" class="gridRow">
+            <div class="gridRow rowBody">
+                <div ng-repeat="col in columns" class="gridCell {{col.cellClass}}" ng-style="{width : col.width}" ng-if="col.type != 'hidden'" ng-click="col.click ? col.click(item, startRow + $parent.$index) : clickRow({item: item, position: startRow + $parent.$parent.$index})"
+                    ng-dblclick="col.click ? col.click(item, startRow + $parent.$index) : dbClickRow({item: item, position: startRow + $parent.$parent.$index})">
+
+                    <span title="{{getDataField(item, col.fieldName )}}" compile-data template="{{col.template}}" title="">
+                            <!--{{col.type == 'date' ? (getDataField(item, col.fieldName ) | date : 'dd.MM.yy'):getDataField(item, col.fieldName )}}-->
+                            {{col.type == 'date' ? (getDataField(item, col.fieldName ) | date : 'dd.MM.yy'): getDataField(item, col.fieldName )}}
+                        </span>
+
+                    <!--<div ng-bind-html="trustAsHtml(col)"></div>-->
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="gridFooter">
+        <div class="gridRow">
+
+            <div ng-repeat="col in columns" class="gridCell" ng-style="{width : col.width}" style="height: 40px;" ng-if="col.type != 'hidden'">
+                <!--<span ng-show="$index > 0 && col.doSum == true">{{(data | filter : filterFields | sumByField : col.fieldName) | number }}</span>-->
+
+                <span class="grid-footer-sum" ng-show="$index == 0">סה"כ {{(data | filter : filterFields).length | number}} {{footerText}}<span ng-if="informationFooter!=''" style="margin-right:30px" ng-bind-html="informationFooter"></span></span>
+                <!--<div class="grid-footer-sum" ng-show="$index == 1" ></div>-->
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
+@import "assets/Style/bootstrap.min.css";
+@import "assets/Style/bootstrap.rtl.min.css";
+/*@import "assets/Style/font-awesome.css.map";
+@import "assets/Style/font-awesome.min.css";*/
+@import "assets/Style/recommendation.css";
+
+.ag-rtl .ag-selection-checkbox {
+    padding-left: 4px;
+}
+

@@ -1,0 +1,23 @@
+<div class="bg-login">
+    <div class="img-login t-center">
+        <img src="../../../assets/Images/logo-danialli.png" />
+    </div>
+    <form novalidate #loginForm="ngForm" class="form-login">
+        <div class="form-group">
+            <label>שם משתמש</label>
+            <input class="form-control" type="text" name="nvUserName" [(ngModel)]="user.nvUserName" required />
+        </div>
+
+        <div class="form-group">
+            <label>סיסמא</label>
+            <input class="form-control" type="password" name="nvPassword" [(ngModel)]="user.nvPassword" required />
+        </div>
+
+        <div class="t-center form-group">
+            <button class="btn-green" (click)="login()" [disabled]="!loginForm.form.valid"><strong>כניסה</strong></button>
+        </div>
+    </form>
+
+</div>
+<div class="part-5">
+</div>

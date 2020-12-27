@@ -1,0 +1,401 @@
+.container {
+    width: 90%;
+}
+
+.grid-wrapper {
+    font-size: 1rem;
+    color: #333030;
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 2px 2px 2px #EEE;
+}
+
+.grid-header {
+    z-index: 20;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.gridFooter .gridRow {
+    transition: all .65s ease;
+}
+
+    .gridFooter .gridRow:hover {
+        background-color: #c5c5c5;
+        color: #000;
+    }
+
+.gridBody {
+    width: calc(100% + 5px);
+    position: relative;
+    z-index: 10;
+    overflow-y: scroll;
+    background-color: #fff;
+    overflow: auto;
+    font-size: 14px;
+}
+
+    .gridBody::-webkit-scrollbar {
+    }
+
+.gridRow {
+    width: 100%;
+    border-bottom: 1px solid #e5e5e5;
+    height: initial;
+}
+
+.gridCell {
+    text-align: right;
+    padding-right: 16px;
+    padding-left: 8px;
+    display: inline-block;
+    vertical-align: top;
+    height: 100%;
+    /*position:relative;
+    left:5px;*/
+}
+
+    .gridCell span {
+        display: inline-block;
+        white-space: nowrap;
+        width: 100%;
+        margin: auto;
+        overflow: hidden;
+        line-height: 40px;
+        height: 100%;
+        text-overflow: ellipsis;
+    }
+
+    .gridCell.cell-label {
+        /*text-align:center;
+margin-top: 4px;*/
+        padding-right: 12px;
+    }
+
+        .gridCell.cell-label span {
+            display: block;
+        }
+
+            .gridCell.cell-label span span {
+                display: inline;
+            }
+
+.gridColumn {
+    /*Odeya*/
+    /*display: inline-block;*/
+    /*display: table-cell;*/
+    /*border-bottom: 1px solid #e5e5e5;*/
+    /*border-bottom: 1px solid #f5f5f5;*/
+    vertical-align: middle;
+    /*height: 44px;*/
+    text-align: right;
+    float: right;
+    padding-right: 8px;
+    padding-left: 8px;
+    height: 100%;
+}
+
+.gridColumnSpan {
+    white-space: nowrap;
+    width: 100%;
+    margin: auto;
+    line-height: 40px;
+}
+
+.headerRow {
+    height: 50px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: #606060;
+    color: white;
+    cursor: pointer;
+    border-bottom: 1px solid #d7d7d7;
+    line-height: 44px;
+}
+
+    .headerRow .gridColumn {
+        vertical-align: top;
+        padding: 3px 5px;
+        height: 100%;
+        position: relative;
+        text-align: center;
+        font-size: 1.4rem;
+        /*border-left: 1px solid #9f9f9f;*/
+        /*font-weight: bold;*/
+    }
+
+    .headerRow > div:first-child ~ .gridColumn {
+        border-right: 1px solid #d7d7d7;
+    }
+
+.grid-header-title {
+    line-height: 2.8;
+}
+
+.grid-header-primary .grid-header-title {
+}
+
+.headerRow .gridColumn .sort {
+    position: absolute;
+    left: 2px;
+    z-index: 1;
+    width: auto;
+}
+
+.filter-header-row input {
+    border: none;
+    width: 85%;
+    height: 30px !important;
+    line-height: 24px !important;
+    background-color: transparent !important;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-indent: 0.2em;
+    outline: none;
+}
+
+.headerFilter {
+    height: 40px;
+    line-height: 38px;
+    background-color: white;
+}
+
+    .headerFilter .gridColumn {
+        padding: 4px;
+    }
+
+.filter-header-row {
+    height: 30px !important;
+    line-height: 30px !important;
+    border-color: #e6e6e6;
+    box-shadow: none;
+}
+
+.search-template .filter-header-row {
+    text-indent: 5px;
+    margin-top: 5px;
+}
+
+
+.gridBody .gridRow {
+    height: 40px;
+    line-height: 40px;
+}
+
+    .gridBody .gridRow:not(.headerRow):not(.headerFilter):hover {
+        /*background-color: #f5f5f5;*/
+        cursor: pointer;
+    }
+
+
+    .gridBody .gridRow:hover {
+        background-color: #f5f5f5;
+    }
+
+.site .gridBody .gridRow:hover {
+    cursor: pointer;
+}
+
+.filter-header-row input[type="text"] {
+    border: none;
+    width: 85%;
+    height: 30px !important;
+    line-height: 24px !important;
+    background-color: transparent !important;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-indent: 0.2em;
+    outline: none;
+    border: none !important;
+}
+
+    .filter-header-row input::-webkit-input-placeholder {
+        color: #e5e5e5;
+    }
+
+.filter-header-row .btn {
+    padding: 2px 6px;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.grid-footer-sum {
+    width: initial !important;
+}
+
+
+.gridFooter {
+    width: 100%;
+    background-color: #e6e6e6;
+    height: 40px;
+    line-height: 40px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom: 1px solid #bbb;
+    overflow: hidden;
+}
+
+    .gridFooter .rows-sum {
+        padding-right: 10px;
+        position: absolute;
+    }
+
+
+/*@media (min-width: 992px) and (max-width: 1199px) {*/
+
+/*.gridColumn {*/
+/*padding-left: 4px;*/
+/*padding-right: 4px;*/
+/*}*/
+
+/*.headerRow .gridColumn {*/
+/*font-size:0.9rem;*/
+/*padding: 6px;*/
+/*}*/
+
+/*.gridCell.cell-label span span {*/
+/*padding:6px;*/
+/*}*/
+/*}*/
+
+/*@media (min-width: 1200px) and (max-width: 1599px) {*/
+
+/*.headerRow .gridColumn {*/
+/*font-size:0.95rem;*/
+/*line-height:1.2;*/
+/*}*/
+
+/*.gridCell.cell-label span span {*/
+/*padding:6px 8px;*/
+/*}*/
+/*}*/
+
+/*@media (min-width: 1600px) and (max-width: 1750px) {*/
+/*.headerRow .gridColumn {*/
+/*!*font-size:0.9rem;*!*/
+/*}*/
+/*}*/
+
+/*!* Tab 2 10.1  *!*/
+/*@media (max-device-width: 1280px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1) !*(min-resolution: 149dpi)*! {*/
+
+/*.headerRow .gridColumn {*/
+/*font-size: 0.9rem;*/
+/*letter-spacing: -0.1px;*/
+/*}*/
+/*}*/
+
+.cancel-margin {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+
+.cancel-padding {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+.grid-paging-right {
+    margin-left: 2px;
+}
+
+.grid-paging-left {
+    margin-right: 2px;
+}
+
+.btn-dropdown-title {
+    float: right;
+    font-size: 1rem;
+    color: #777;
+}
+
+.btn-dropdown {
+    width: 100%;
+    background-color: white;
+    border: 1pt solid #e6e6e6;
+    border-radius: 3px !important;
+}
+
+.grid-paging .btn-dropdown-title {
+    width: auto;
+    font-size: 1.4rem;
+}
+
+.grid-paging .caret {
+    margin-top: 8px;
+}
+
+.grid-paging-wrapper {
+    width: auto;
+}
+
+.grid-paging .btn[disabled], .grid-paging .btn.disabled {
+    opacity: .35 !important;
+}
+
+.grid-paging .btn-dropdown-title {
+    width: auto;
+    font-size: 1.4rem;
+}
+
+.grid-paging .caret {
+    margin-top: 8px;
+}
+
+ul.dropdown-menu.paging {
+    overflow-y: auto;
+    max-height: 800px;
+    width: 300px;
+    min-width: 0;
+}
+
+.no-padding-dropdown.btn.btn-dropdown.dropdown-toggle.claerfix {
+    padding: 4px 12px;
+}
+
+
+/*expand-animate */
+
+.expand-animate {
+    /*padding:10px;*/
+}
+
+    .expand-animate .headerRow {
+        /*background-color: #fde3de;*/
+        /*border: 1px solid #fab8ac;*/
+        border-radius: 0;
+    }
+
+        .expand-animate .headerRow > div:first-child ~ .gridColumn {
+            /*border-right: 1px solid #fab8ac;*/
+        }
+
+    .expand-animate .gridBody {
+        width: 100%;
+    }
+
+        .expand-animate .gridBody .gridRow select {
+            margin-top: 2px;
+        }
+
+    .expand-animate.ng-enter, .expand-animate.ng-leave {
+        transition: all linear 0.5s;
+    }
+
+        .expand-animate.ng-enter,
+        .expand-animate.ng-leave.ng-leave-active {
+            opacity: 0;
+        }
+
+            .expand-animate.ng-leave,
+            .expand-animate.ng-enter.ng-enter-active {
+                opacity: 1;
+                /*padding: 0 10px;*/
+            }
+/*expand-animate END*/
+
+.expandRow {
+    height: initial;
+}
