@@ -1,0 +1,248 @@
+ <div class="dialog-overlap-year"></div>
+<div class="c">
+    <div name="dialog" class="dialog-year container">
+        <div  class="pull-right icon-close"><i (click)="closeDialog()" class="fa fa-times" aria-hidden="true"></i></div>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-2">שנה</label>
+                <div class="col-md-2">
+                    <select class=" form-control" [(ngModel)]="oYear.iYearId" (change)="openDialog(oYear.iYearId)" name="yearId">
+                        <option value="-1">--- בחר ---</option>
+                        <option *ngFor='let year of lYears' [value]="year">{{year}}</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn-green" *ngIf="oYear['bNew']" (click)="insertUpdateYear()">צור</button>
+            
+            <div class="form-group" *ngIf="!oYear['bNew']">
+                <label class="col-md-2">טקסט פתיחה</label>
+                <div class="col-md-6">
+                    <textarea class="form-control" rows="8" [(ngModel)]="oYear.nvMainText" (blur)="insertUpdateYear()" name="mainTxt"></textarea>
+                </div>
+            </div>
+
+            <br><br>
+
+            <div *ngIf="!oYear['bNew']" class="group-1">
+                <div>
+                    <h3 class="main-title">קטגוריות </h3>
+                    <span class="circle-button" (click)="addCategoryType('', oYear)">+</span>
+                </div>
+                <div name="category 1" *ngFor="let catType of oYear.lCategoryType" class="row bg-line">
+                    <div name="title category 1">
+                        <span class="title" *ngIf="currentCategoryType[0].iCatTypeId == catType.iCatTypeId">קטגוריה ראשית</span>
+                    </div>
+                    <div name="icons category 1" class="row margin-0">
+                        <span style="float:right" (click)="removeCategoryType(oYear.lCategoryType, catType)" class="icon-trasf"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                        <div (click)="selectCategoryType(1,catType)">
+                            <span *ngIf="currentCategoryType[0].iCatTypeId != catType.iCatTypeId"><i class="fa fa-chevron-down" aria-hidden="true"></i></span>
+                            <span *ngIf="currentCategoryType[0].iCatTypeId == catType.iCatTypeId"><i class="fa fa-chevron-up" aria-hidden="true"></i></span>
+                            <span>{{catType.nvCatTypeTitle}}</span>
+                        </div>
+                    </div>
+                    <div name="open category 1" *ngIf="currentCategoryType[0].iCatTypeId == catType.iCatTypeId">
+                        <div class="col-md-4" [style]="{'width': (100/categoryCount) + '%'}">
+                            <div class="form-group">
+                                <label class="col-md-2">כותרת</label>
+                                <div class="col-md-6">
+                                    <input class=" form-control" type="text" [(ngModel)]="catType.nvCatTypeTitle" (change)="updateCategoryType(catType)" name="nvCatTypeTitle1"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2">תיאור</label>
+                                <div class="col-md-6">
+                                    <input class=" form-control" type="text" [(ngModel)]="catType.nvCatTypeDesc" (change)="updateCategoryType(catType)" name="nvCatTypeDesc1"/>
+                                </div>
+                            </div>
+                            <div name="list category 1">
+                                <span class="title">רשימה</span>
+                                <span class="circle-button" (click)="addCategoryItem(catType,currentCategoryItem[0].iCatItemId)">+</span>
+                                <div *ngFor="let catItem of catType.lCategoryItem" class="row form-group">
+                                    <div class="col-md-1">
+                                        <span class="checkbox-new" (click)="selectCategoryItem(1,catItem)">
+                                            <i class="fa fa-check" aria-hidden="true" *ngIf="currentCategoryItem[0] == catItem"></i>                                            
+                                        </span>
+                                    </div>
+                                    <label class="col-md-1">שם</label>
+                                    <div class="col-md-6">
+                                        <!--name="nvCatItemName1"  -->
+                                        <input class=" form-control" type="text" [(ngModel)]="catItem.nvCatItemName" (change)="updateCategoryItem(catItem)"  [ngModelOptions]="{standalone: true}"/>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <span (click)="removeCategoryItem(catType, catItem);closeCurrentCategoryItem(1)" class="icon-trasf"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div name="category 2" class="col-md-8 group-2" [style]="{'width': (100/categoryCount*(categoryCount-1)) + '%'}">
+                            <div name="title category 2">
+                                <span class="title">קטגוריות משנה</span>
+                                <span class="circle-button" (click)="addCategoryType(2, catType)">+</span>
+                            </div>
+                            <!-- | filter : {iCatItemParentId : currentCategoryItem.iCatItemId} : true  -->
+                            <div *ngFor="let catType2 of catType.lCategoryType " class="row bg-line-2">
+                                <div name="icons category 2" class="row margin-0">
+                                    <span style="float:right" (click)="removeCategoryType(catType.lCategoryType, catType2)" class="icon-trasf"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                                    <div (click)="selectCategoryType(2,catType2)">
+                                        <span *ngIf="currentCategoryType[1].iCatTypeId != catType2.iCatTypeId"><i class="fa fa-chevron-down" aria-hidden="true"></i></span>
+                                        <span *ngIf="currentCategoryType[1].iCatTypeId == catType2.iCatTypeId"><i class="fa fa-chevron-up" aria-hidden="true"></i></span>
+                                        <span>{{catType2.nvCatTypeTitle}}</span>
+                                    </div>
+                                </div>
+                                <div name="open category 2" *ngIf="currentCategoryType[1].iCatTypeId == catType2.iCatTypeId">
+                                    <div class="col-md-6" [style]="{'width': (100/(categoryCount - 1)) + '%'}">
+                                        <div class="form-group">
+                                            <label class="col-md-2">כותרת</label>
+                                            <div class="col-md-6">
+                                                <input class=" form-control" type="text" [(ngModel)]="catType2.nvCatTypeTitle" (change)="updateCategoryType(catType2)" name="nvCatTypeTitle2"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2">תיאור</label>
+                                            <div class="col-md-6">
+                                                <input class=" form-control" type="text" [(ngModel)]="catType2.nvCatTypeDesc" (change)="updateCategoryType(catType2)" name="nvCatTypeDesc2"/>
+                                            </div>
+                                        </div>
+                                        <div name="items list 2" *ngIf="currentCategoryItem[0]">
+                                            <span class="title">רשימה</span>
+                                            <span class="circle-button" (click)="addCategoryItem(catType2, currentCategoryItem[0].iCatItemId) ">+</span>
+                                            <div class="max-height">
+                                                <div *ngFor="let catItem2 of catType2.lCategoryItem " class="row form-group ">
+                                                    <div class="col-md-1 ">
+                                                        <span class="checkbox-new" (click)="selectCategoryItem(2,catItem2)">
+                                                            <i class="fa fa-check" aria-hidden="true" *ngIf="currentCategoryItem[1] == catItem2"></i>                                            
+                                                        </span>
+                                                    </div>
+                                                    <label class="col-md-1">שם</label>
+                                                    <div class="col-md-6 ">
+                                                        <!--name= "nvCatItemName2"-->
+                                                        <input class=" form-control" type="text" [(ngModel)]="catItem2.nvCatItemName" (change)="updateCategoryItem(catItem2) " [ngModelOptions]="{standalone: true}"/>
+                                                    </div>
+                                                    <div class="col-md-1 ">
+                                                        <span (click)="removeCategoryItem(catType2, catItem2);closeCurrentCategoryItem(2) " class="icon-trasf "><i class="fa fa-trash-o " aria-hidden="true"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div name="category 3" class="col-md-6 group-3" [style]="{'width': (100/(categoryCount - 1)*(categoryCount-2))  + '%'}">
+                                        <div name="title category 3">
+                                            <span class="title">קטגוריות משנה 3</span>
+                                            <span class="circle-button" (click)="addCategoryType(3, catType2) ">+</span>
+                                        </div>
+                                        <div *ngFor="let catType3 of catType2.lCategoryType" class="row bg-line-3">
+                                            <div name="icons category 3" class="row margin-0">
+                                                <span style="float:right" (click)="removeCategoryType(catType2.lCategoryType, catType3)" class="icon-trasf "><i class="fa fa-trash-o " aria-hidden="true "></i></span>
+                                                <div (click)="selectCategoryType(3,catType3)">
+                                                    <span *ngIf="currentCategoryType[2].iCatTypeId != catType3.iCatTypeId"><i class="fa fa-chevron-down" aria-hidden="true"></i></span>
+                                                    <span *ngIf="currentCategoryType[2].iCatTypeId == catType3.iCatTypeId"><i class="fa fa-chevron-up" aria-hidden="true"></i></span>
+                                                    <span>{{catType3.nvCatTypeTitle}}</span>
+                                                </div>
+                                            </div>
+                                            <div name="open category 3" *ngIf="currentCategoryType[2].iCatTypeId == catType3.iCatTypeId">
+                                                <div class="col-md-6" [style]="{'width': (100/(categoryCount - 2)) + '%'}">
+                                                    <div class="form-group ">
+                                                        <label class="col-md-2 ">כותרת</label>
+                                                        <div class="col-md-6 ">
+                                                            <input class=" form-control " type="text" [(ngModel)]="catType3.nvCatTypeTitle " (change)="updateCategoryType(catType3) " name="nvCatTypeTitle3"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group ">
+                                                        <label class="col-md-2 ">תיאור</label>
+                                                        <div class="col-md-6 ">
+                                                            <input class=" form-control " type="text" [(ngModel)]="catType3.nvCatTypeDesc " (change)="updateCategoryType(catType3) " name="nvCatTypeDesc3"/>
+                                                        </div>
+                                                    </div>
+                                                    <div name="items list 3" *ngIf="currentCategoryItem[1]">
+                                                        <span class="title">רשימה</span>
+                                                        <span class="circle-button" (click)="addCategoryItem(catType3, currentCategoryItem[1].iCatItemId) ">+</span>
+                                                        <!--| filter : {iCatItemParentId : currentCategoryItem.iCatItemId} : true" class="row form-group   -->
+                                                        <div *ngFor="let catItem3 of catType3.lCategoryItem " class="row form-group">
+                                                            <div class="col-md-1 ">
+                                                                <span class="checkbox-new" (click)="selectCategoryItem(3,catItem3)">
+                                                                    <i class="fa fa-check" aria-hidden="true" *ngIf="currentCategoryItem[2] == catItem3"></i>                                            
+                                                                </span>
+                                                            </div>
+                                                            <label class="col-md-1">שם</label>
+                                                            <div class="col-md-6">
+                                                                <!-- name="nvCatItemName3" -->
+                                                                <input class=" form-control" type="text" [(ngModel)]="catItem3.nvCatItemName" (change)="updateCategoryItem(catItem3) "  [ngModelOptions]="{standalone: true}"/>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <span (click)="removeCategoryItem(catType3, catItem3)" class="icon-trasf"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div name="category 4" class="col-md-6 group-4" [style]="{'width': (100/(categoryCount - 2)*(categoryCount-3)) + '%'}">
+                                                    <div name="title category 4">
+                                                        <span class="title">קטגוריות משנה 4</span>
+                                                        <span class="circle-button" (click)="addCategoryType(4, catType3) ">+</span>
+                                                    </div>
+                                                    <div *ngFor="let catType4 of catType3.lCategoryType" class="row bg-line-4">
+                                                        <div name="icons category 4" class="row margin-0">
+                                                            <span style="float:right" (click)="removeCategoryType(catType3.lCategoryType, catType4)" class="icon-trasf "><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                                                            <div (click)="selectCategoryType(4,catType4)">
+                                                                <span *ngIf="currentCategoryType[3].iCatTypeId != catType4.iCatTypeId"><i class="fa fa-chevron-down" aria-hidden="true"></i></span>
+                                                                <span *ngIf="currentCategoryType[3].iCatTypeId == catType4.iCatTypeId"><i class="fa fa-chevron-up" aria-hidden="true"></i></span>
+                                                                <span>{{catType4.nvCatTypeTitle}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div name="open category 4" *ngIf="currentCategoryType[3].iCatTypeId == catType4.iCatTypeId">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="col-md-2">כותרת</label>
+                                                                    <div class="col-md-6">
+                                                                        <input class=" form-control" type="text" [(ngModel)]="catType4.nvCatTypeTitle" (change)="updateCategoryType(catType4)" name="nvCatTypeTitle4"/>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-md-2">תיאור</label>
+                                                                    <div class="col-md-6">
+                                                                        <input class=" form-control" type="text" [(ngModel)]="catType4.nvCatTypeDesc " (change)="updateCategoryType(catType4) " name="nvCatTypeDesc4"/>
+                                                                    </div>
+                                                                </div>
+                                                                <div name="items list 4" *ngIf="currentCategoryItem[2]">
+                                                                    <span class="title">רשימה</span>
+                                                                    <span class="circle-button" (click)="addCategoryItem(catType4, currentCategoryItem[2].iCatItemId) ">+</span>
+                                                                    <!-- | filter : {iCatItemParentId : currentCategoryItem3.iCatItemId} : true -->
+                                                                    <div *ngFor="let catItem4 of catType4.lCategoryItem " class="row form-group">
+                                                                        <div class="col-md-1">
+                                                                            <span class="checkbox-new" (click)="selectCategoryItem(4,catItem4)">
+                                                                            <i class="fa fa-check" aria-hidden="true" *ngIf="currentCategoryItem[3] == catItem4"></i>                                            
+                                                                        </span>
+                                                                        </div>
+                                                                        <label class="col-md-1">שם</label>
+                                                                        <div class="col-md-6">
+                                                                            <!--nvCatItemName4  -->
+                                                                            <input class=" form-control " type="text" [(ngModel)]="catItem4.nvCatItemName" (change)="updateCategoryItem(catItem4)"  [ngModelOptions]="{standalone: true}"/>
+                                                                        </div>
+                                                                        <div class="col-md-1">
+                                                                            <span (click)="removeCategoryItem(catType4, catItem4) " class="icon-trasf "><i class="fa fa-trash-o " aria-hidden="true"></i></span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+    
+    <!-- <div>
+        <span ng-show="importFile.name" (click)="uploadFromExcel()">יבא נתונים</span>
+        <label for="inputFile">טען קובץ</label> {{importFile.name}}
+        <input id="inputFile" style="visibility: hidden" type="file" ng-file-select="importFile = $files[0]" />
+    </div> -->
+
+

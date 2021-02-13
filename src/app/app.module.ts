@@ -18,6 +18,9 @@ import { RecommendationsComponent } from './Components/recommendations/recommend
 import { SettingsComponent } from './Components/settings/settings.component';
 import { DatePipe } from '@angular/common';
 import { GlobalDialogComponent } from './Components/global-dialog/global-dialog.component';
+import { YearSettingsComponent } from './Components/year-settings/year-settings.component';
+import { MyFilterPipe } from './Pipes/my-filter.pipe';
+
 
 @NgModule({
   declarations: [
@@ -30,6 +33,10 @@ import { GlobalDialogComponent } from './Components/global-dialog/global-dialog.
     RecommendationsComponent,
     SettingsComponent,
     GlobalDialogComponent,
+    YearSettingsComponent,
+    MyFilterPipe,
+   
+
   ],
   imports: [
     BrowserModule,

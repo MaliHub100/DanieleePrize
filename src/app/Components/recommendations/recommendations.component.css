@@ -40,8 +40,9 @@
 
 .dialog-doctor {
     border: solid 4px #c0e773;
-    top: 252px;
-    right: 790px;
+    top: 30%;
+    width: 30%;
+    right: 35%;
     padding: 0;
 }
 

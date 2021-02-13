@@ -1,4 +1,4 @@
-<div style="width: 1000px; margin: auto; text-align: center;">
+<div style="width: 80%; margin: auto; text-align: center;">
     <ag-grid-angular
         
         style=" height: 500px;" 
@@ -10,21 +10,27 @@
         [rowDragManaged]="true"
         >
     </ag-grid-angular>
-    </div>
-
+</div>
     <div>
          <div name="dialog" *ngIf="vars.toChangeDoctor" class="dialog-year dialog-doctor" >
              <div (click)="closeDialog()" class="pull-right icon-close"><i class="fa fa-times" aria-hidden="true"></i></div>
                 <div style="padding: 50px;">  
                 {{vars.item.nvNewDoctorName}}
                 <br />
-                <search-input id="iCatItemId" ng-model="iCatItemId" sourcedata="lCategoryItem" ismulti="false" bcancel="true" bcursor="true"
-                              onChoose="choose(itemSearch)" searchfield="['nvCatItemName']" placeholder="שם הרופא" title="שם הרופא">
-                </search-input>
-    
+                <select class="form-control" [(ngModel)]="iCatItemId" (change)="choose(iCatItemId)">
+                        <option [value]="">--- בחר רופא ---</option>
+                        <option *ngFor="let type of lCategoryItem" [value]="type.iCatItemId">{{type.nvCatItemName}}</option>
+                </select> 
+                <!-- <input list="list" name="iCatItemId" id="iCatItemId" >
+                <datalist id="list" (change)="choose(1)">
+                     <option *ngFor="let type of lCategoryItem" [value]="type.nvCatItemName">                
+                </datalist>  -->
+                <!-- <search-input id="iCatItemId" ng-model="iCatItemId" sourcedata="lCategoryItem" ismulti="false" bcancel="true" bcursor="true"
+                              onchoose="choose(itemSearch)" searchfield="['nvCatItemName']" placeholder="שם הרופא" title="שם הרופא">
+                </search-input> -->
             </div>
              <div class="">
                 <button type="button" class="Btn btn-danialli pull-left" style="margin: 8px;" (click)="saveDoctor()">אישור</button>
             </div> 
         </div> 
-    </div>
+    </div>מ

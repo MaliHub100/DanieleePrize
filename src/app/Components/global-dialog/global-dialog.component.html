@@ -1,1 +1,13 @@
-<p>global-dialog works!</p>
+<div class="bg-global-dialog" >
+    <div class="global-dialog">
+        <div class="pull-right" (click)="vars.globalDialog.cancelFunc ?vars.globalDialog.cancelFunc(): (vars.globalDialog = null)"><span class="icon-close glyphicon glyphicon-remove"></span></div>
+        <div class="icon-ok" *ngIf="vars.globalDialog.type == 'success'"><span class="glyphicon glyphicon-ok"></span></div>
+        <div class="icon-ok" *ngIf="vars.globalDialog.type == 'error'" style="background:#c41b24"><span class="glyphicon glyphicon-remove"></span></div>
+        <h2>{{vars.globalDialog.title}}</h2>
+        <p>{{vars.globalDialog.text}}</p>
+        <div *ngIf="vars.globalDialog.confirmBtns">
+            <span (click)="vars.globalDialog.confirmFunc ? vars.globalDialog.confirmFunc(): (vars.globalDialog = null)">אישור</span>
+            <span (click)="vars.globalDialog.cancelFunc ? vars.globalDialog.cancelFunc(): (vars.globalDialog = null)">ביטול</span>
+        </div>            
+    </div>
+</div>

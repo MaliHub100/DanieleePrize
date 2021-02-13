@@ -28,20 +28,31 @@
     bottom: 0;
     left: 0;
     z-index: 10;
+    width: 100%;
 }
+.container {
+    width: 90%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
 
+}
 .dialog-year {
     padding: 3%;
     top: 100px;
     z-index: 10;
     position: absolute;
     background: white;
+    width: 90%;
 }
+
 
 .dialog-doctor {
     border: solid 4px #c0e773;
-    top: 252px;
-    right: 790px;
+    top: 30%;
+    width: 30%;
+    right: 35%;
     padding: 0;
 }
 
@@ -140,13 +151,13 @@ a {
 
 .img-login img {
     height: 160px;
-    margin-top: 4%;
+    margin-top: 2%;
 }
 
 .form-login {
     width: 20%;
     margin: auto;
-    margin-top: 4%;
+    margin-top: 2%;
 }
 
 .t-center {

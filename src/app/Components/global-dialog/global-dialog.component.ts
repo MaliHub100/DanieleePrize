@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { VariablesService } from 'src/app/Services/variables.service';
 
 @Component({
   selector: 'app-global-dialog',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GlobalDialogComponent implements OnInit {
 
-  constructor() { }
+  constructor(public vars:VariablesService) { }
 
   ngOnInit(): void {
+  }
+
+  confirmFunc(){
+
+  }
+
+  cancelFunc(){
+
   }
 
 }

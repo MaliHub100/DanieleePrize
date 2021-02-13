@@ -1,15 +1,40 @@
-<div style="width: 1000px; margin: auto; text-align: center;">
-    <ag-grid-angular
-        
-        style=" height: 500px;" 
-        class="ag-theme-balham"
-        [defaultColDef]="defaultColDef"
-        [rowData]="rowData" 
-        [columnDefs]="columnDefs"
-        enableRtl="true"
-        [rowDragManaged]="true"
-        >
-    </ag-grid-angular>
+<div>
+    <div ng-style="{'opacity': toChangeLink? 0.3 : 1}">
+        <!-- <button ng-click="exportToExcel()" class="pull-right btn-green"><i class="fa fa-file-excel-o" aria-hidden="true"></i></button> -->
+        <button title="הוספת קישור" (click)="newLink()" class="pull-right btn-green"><i class="fa fa-plus" aria-hidden="true"></i></button>
+
+        <div style="width: 80%; margin: auto; text-align: center;">
+            <ag-grid-angular
+                
+                style=" height: 500px;" 
+                class="ag-theme-balham"
+                [defaultColDef]="defaultColDef"
+                [rowData]="rowData" 
+                [columnDefs]="columnDefs"
+                enableRtl="true"
+                [rowDragManaged]="true"
+                >
+            </ag-grid-angular>
+        </div>
+
+    </div>
+
+  
+
+    <div name="dialog" *ngIf="this.toChangeLink" class="dialog-year dialog-doctor">
+        <div (click)="closeDialog()" class="pull-right icon-close"><i class="fa fa-times" aria-hidden="true"></i></div>
+        <div style="padding: 50px;">
+            <input type="text" class="form-control" [(ngModel)]="link.nvSource" placeholder="מקור ההצבעה*" id="nvSource" name="nvSource"/>
+            <br/>
+            <select class="form-control" [(ngModel)]="link.iHMOType">
+                <option [value]="-1">--- בחר קופה ---</option>
+                <option *ngFor="let type of lHMOs" [value]="type.iSettingId">{{type.nvSetting}}</option>
+            </select> 
+        </div>
+        <div class="">
+            <button type="button" class="btn btn-danialli pull-left" style="margin: 8px;" (click)="saveLink()">אישור</button>
+        </div>
+    </div>
 </div>
-    
-      
+
+

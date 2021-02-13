@@ -1,3 +1,4 @@
+import { SelectorMatcher } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { ConnectService } from 'src/app/Services/connect.service';
 import { VariablesService } from 'src/app/Services/variables.service';
@@ -21,51 +22,90 @@ export class LinksComponent implements OnInit {
 
   rowData = [];
   defaultColDef={};
-
+  toChangeLink;
+  link;
+  lHMOs;
+  
+ 
   constructor(private cnct:ConnectService, private vars:VariablesService) {
     this.defaultColDef = { resizable: true };
+    
    }
 
   ngOnInit(): void {
-    this.cnct.post('GetLinks',{ })
-    .then(
-      res=>{
-        if(res){
-          this.vars.tableInfo.data = [];
-          res.forEach(function(r) {
-            this.vars.tableInfo.data.push({
-              iLinkId: r.iLinkId,
-              nvHMO: r.nvHMO ? r.nvHMO : '',
-              nvSource: r.nvSource ? r.nvSource : '',
-              nvLink: r.nvLink ? r.nvLink : '',
-              iCount: r.iCount ? r.iCount : 0
+    this.getLinks();
+    this.getHMOs();
+  }
+    
+  getLinks(){
+    this.cnct.post('GetLinks', {})
+      .then(
+        res => {
+          if (res) {
+            this.vars.tableInfo.data = [];
+            res.forEach(function (r) {
+              this.vars.tableInfo.data.push({
+                iLinkId: r.iLinkId,
+                nvHMO: r.nvHMO ? r.nvHMO : '',
+                nvSource: r.nvSource ? r.nvSource : '',
+                nvLink: r.nvLink ? r.nvLink : '',
+                iCount: r.iCount ? r.iCount : 0
 
-          });
-      }, this);
-      this.rowData=this.vars.tableInfo.data;
-    }
-  });
-}
+              });
+            }, this);
+            this.rowData = this.vars.tableInfo.data;
+          }
+        });
+  }
 
+  getHMOs() {
+    this.cnct.post('GetHMOs', {})
+      .then(
+        res => {
+          if (res) {
+            this.lHMOs = res;
+          }
+          else {
+            this.vars.globalDialog = { type: 'error', title: 'אירעה שגיאה בלתי צפויה' };
+          }
+        });
+  }
   editLink(item){
-    this.vars.link=item.data;
-    this.vars.toChangeLink=true;
+    this.link=item.data;
+    this.link.iHMOType = this.link.nvHMO!=''?this.lHMOs.filter(h=>h.nvSetting==this.link.nvHMO)[0].iSettingId:-1;
+    this.toChangeLink=true;
   }
 
   closeDialog(){
-    this.vars.toChangeLink=null;
+    this.toChangeLink=null;
   }
 
   saveLink(){
-    if(!this.vars.link.nvSource) return;
-    this.cnct.post('LinkInsertUpdate', { 'link':this.vars.link, 'iUserId': this.vars.user.iUserId }).then(
+    if(!this.link.nvSource) return;
+    this.cnct.post('LinkInsertUpdate', { 'link':this.link, 'iUserId': this.vars.user.iUserId }).then(
       res=>{
         if(res&&res>0){
           this.vars.globalDialog={type:'success',title:'נשמר בהצלחה' };
-          this.vars.toChangeLink=null;
+          this.toChangeLink=null;
+          this.getLinks();
         }
+        else{
+          this.vars.globalDialog={type:'error',title:'אירעה שגיאה בלתי צפויה' };
+        }
+
       }
-    )
+    ),function () {
+     this.vars.globalDialog = { type: 'error', title: 'אירעה שגיאה בלתי צפויה' };
+  }
   }
 
+  newLink(){
+    this.link = {
+      iLinkId: -1,
+      nvLink: '',
+      nvSource: '',
+      iHMOType: -1
+  };
+    this.toChangeLink = true;
+  }
 }

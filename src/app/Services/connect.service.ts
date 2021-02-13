@@ -1,21 +1,24 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { promise } from 'protractor';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ConnectService {
-  baseUrl = "http://qa.webit-track.com/DanieleePrizeWS/Service.svc/";
+  //baseUrl = "http://localhost:51087/Service1.svc/";
+  baseUrl = "http://qa.webit-track.com/AppTest/Service1.svc/";
 
   constructor(private http:HttpClient) {
     this.http=http;
    }
 
-  post(functionName : string, data) : Promise<any> {
+  post(functionName : string, data:any) : Promise<any> {
     console.log (functionName);
+    console.log (data);
     return this.http.post(`${this.baseUrl}${functionName}`, data).toPromise();
   }
 

@@ -52,12 +52,12 @@ export class RecommendationsComponent implements OnInit {
   ngOnInit(): void {
     var currentYear = 2020;
     var myDate = new Date();
-    this.cnct.post('GetRecommendations',{ iYearId: currentYear })
+    this.cnct.post('GetRecommendations',{ iYearId: currentYear,nvGuide: this.vars.user.nvGuide })
     .then(
       res=>{
         if(res){
           this.vars.tableInfo.data = [];
-          res.forEach(function(r) {
+          res.Result.forEach(function(r) {
             myDate=r.dtCreateDate.split('(')[1].split(')')[0].split('+')[0];
             let type = r.nvFilePath && r.nvFilePath != '' ? r.nvFilePath.split('.')[r.nvFilePath.split('.').length - 1] : null;
                 this.vars.tableInfo.data.push({

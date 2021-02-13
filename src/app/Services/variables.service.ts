@@ -39,14 +39,14 @@ export class VariablesService {
   categoryType:CategoryType=new CategoryType();
   categoryItem:CategoryItem=new CategoryItem();
   item;
-  link;
   globalDialog=null;
-  toChangeLink:boolean=null;
   toChangeDoctor:boolean=null;
   isLogin:boolean;
   bShowRecommendation:boolean=false;
   tableInfo={
     data:[],
-    colums:[]
+    columns:[],
+    currentData:[]
   };
 }
+

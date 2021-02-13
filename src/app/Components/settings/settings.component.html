@@ -1,0 +1,19 @@
+<div>
+
+    <!-- <button class="pull-right btn-green " ng-click="exportToExcel()"><i class="fa fa-file-excel-o" aria-hidden="true"></i></button> -->
+    <button class="pull-right btn-green ml-10" (click)="openDialog(null)">הוספת שנה</button>
+
+    <div style="width: 80%; margin: auto; text-align: center;">
+        <ag-grid-angular          
+            style=" height: 500px;" 
+            class="ag-theme-balham"
+            [defaultColDef]="defaultColDef"
+            [rowData]="rowData" 
+            [columnDefs]="columnDefs"
+            enableRtl="true"
+            [rowDragManaged]="true"
+            >
+        </ag-grid-angular>
+    </div>
+<app-year-settings *ngIf="oYear!=null" [oYear]='oYear' [openDialog]='openDialogInner' (closeDialog)='closeDialog()' [categoryCount]='categoryCount' ></app-year-settings>
+</div>
